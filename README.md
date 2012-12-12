@@ -39,7 +39,7 @@ $('form').flury();
 
 ## Functions
 
-```
+```js
 $('form').flury('set', { option: 'value' })
 ```
 
