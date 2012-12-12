@@ -1,0 +1,6 @@
+.demo label { color: #BBB; font: 15px arial; letter-spacing: .7px; padding-left: 6px; padding-top: 8px; }
+.demo input { background-color: #FBFBFB; border: 1px solid #999; border-radius: 2px; color: #111; height: 26px; margin-bottom: 5px; letter-spacing: .3px; padding: 3px; }
+.demo textarea { background-color: #FBFBFB; border: 1px solid #999; border-radius: 2px; color: #111; font: 12px verdana; letter-spacing: .3px; padding: 3px; resize: vertical; }
+
+.demo input:focus, .demo textarea:focus { border: 1px solid #95BDD4; }
+.demo input:hover, .demo textarea:hover { border: 1px solid #BDBDBD; }

@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+
+<html lang="en" dir="ltr">
+<head>
+  <meta charset="utf-8">
+  <meta content="IE=edge,chrome=1" http-equiv="X-UA-Compatible">
+  <meta content="width=device-width; initial-scale=1; maximum-scale=1" name="viewport">
+
+  <title>JQuery Flury</title>
+
+  <meta content="Washington Botelho" name="author">
+  <meta content="jQuery Flury - A Labeler Field" name="description">
+  <meta content="jquery,plugin,focus,blur,field,form,shadow" name="keywords">
+
+	<link type="text/css" rel="stylesheet" href="demo/css/application.css">
+
+  <script type="text/javascript" src="demo/js/jquery.min.js"></script>
+	<script type="text/javascript" src="lib/jquery.flury.min.js"></script>
+
+	<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
+</head>
+<body>
+	<div id="wrapper">
+		<header role="banner">
+			<div id="logo">
+				<h1><a href="http://wbotelhos.com/flury" title="jQuery Flury">jQuery Flury</a></h1>
+				<p>A Labeler Field</p>
+			</div>
+
+			<nav role="navigation">
+			  <ul>
+			    <li><a href="http://github.com/downloads/wbotelhos/flury/jquery.flury-0.1.0.zip" title="Download" target="_blank" class="download"><i class="icon-download icon-large"></i>v0.1.0</a></li>
+          <li><a href="http://github.com/wbotelhos/flury" title="Github" target="_blank"><i class="icon-github icon-large"></i>Github</a></li>
+          <li><a href="http://wbotelhos.com/labs" title="yLab" target="_blank"><i class="icon-beaker icon-large"></i>yLab</a></li>
+          <li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=X8HEP2878NDEG&amp;item_name=jQuery%20Flury" title="Donate" target="_blank"><i class="icon-heart-empty icon-large"></i>Donate</a></li>
+			  </ul>
+			</nav>
+		</header>
+
+    <div id="container">
+      <section role="main">
+        <article>
+          <h2 class="title">Default configuration:</h2>
+
+          <p>This example shows how to use the default configuration over a form.</p>
+
+          <div class="demo">
+            <form id="default" action="">
+              <label for="name">Name:</label>
+              <input id="name" type="text" /><br />
+
+              <label for="email">E-mail:</label>
+              <input id="email" type="email" />
+            </form>
+          </div>
+
+<div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">flury</span><span class="p">();</span>
+</pre>
+</div>
+
+<div class="highlight">
+<pre>
+<span class="nt">&lt;form</span><span class="nt">&gt;</span>
+  <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"name"</span><span class="nt">&gt;</span>Name:<span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"name"</span> <span class="na">type=</span><span class="s">"text"</span> <span class="nt">/&gt;&lt;br</span> <span class="nt">/&gt;</span>
+
+  <span class="nt">&lt;label</span> <span class="na">for=</span><span class="s">"email"</span><span class="nt">&gt;</span>E-mail:<span class="nt">&lt;/label&gt;</span>
+  <span class="nt">&lt;input</span> <span class="na">id=</span><span class="s">"email"</span> <span class="na">type=</span><span class="s">"email"</span> <span class="nt">/&gt;</span>
+<span class="nt">&lt;/form&gt;</span>
+</pre>
+</div>
+
+        <h2 class="title">Including fields:</h2>
+
+        <p>
+          You can hook just some types of fields changing the attribute <code>include</code>:
+        </p>
+
+<div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">flury</span><span class="p">({</span> <span class="nx">include</span><span class="o">:</span> <span class="s1">'input:text'</span> <span class="p">});</span>
+</pre>
+</div>
+
+        <h2 class="title">Excluding fields:</h2>
+
+        <p>
+          The same way you can exclude some fields changing the attribute <code>exclude</code>:
+        </p>
+
+<div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">flury</span><span class="p">({</span> <span class="nx">exclude</span><span class="o">:</span> <span class="s1">'input:password'</span> <span class="p">});</span>
+</pre>
+</div>
+
+          <p>
+            Using direct target instead a form, the <code>include</code> and <code>exclude</code> gets ignored.
+          </p>
+
+          <h2 class="title">Single target:</h2>
+
+          <p>
+            You can bind just some field without bind the whole form.
+          </p>
+
+<div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'#name'</span><span class="p">).</span><span class="nx">flury</span><span class="p">();</span>
+</pre>
+</div>
+
+          <h2 id="global-demo" class="title">Changing the settings globally:</h2>
+
+          <p>
+            You can change any option mention the scope <code>$.fn.flury.defaults.</code> + <i>option_name</i>. This setup must be called before you bind the plugin.
+          </p>
+
+<div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">flury</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">include</span> <span class="o">=</span> <span class="s1">'input:text'</span><span class="p">;</span>
+<span class="nx">$</span><span class="p">.</span><span class="nx">fn</span><span class="p">.</span><span class="nx">flury</span><span class="p">.</span><span class="nx">defaults</span><span class="p">.</span><span class="nx">exclude</span> <span class="o">=</span> <span class="s1">'input:password'</span><span class="p">;</span>
+</pre>
+</div>
+
+          <h2 id="options" class="title">Options:</h2>
+
+          <div id="include" class="option">
+            <div>include: <span>':input'</span></div>
+            <p>Fields to be hooked.</p>
+          </div>
+
+          <div id="exclude" class="option">
+            <div>exclude: <span>'input:button, input:checkbox, input:image, input:radio, input:submit'</span></div>
+            <p>Fields to be excluded of the hook.</p>
+          </div>
+
+          <h2 id="functions" class="title">Functions:</h2>
+
+          <div id="set" class="function">
+<div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">flury</span><span class="p">(</span><span class="s1">'set'</span><span class="p">,</span> <span class="p">{</span> <span class="nx">option</span><span class="o">:</span> <span class="s1">'value'</span> <span class="p">})</span>
+</pre>
+</div>
+
+            <p>Override the options declared.</p>
+          </div>
+
+        </article>
+      </section>
+
+      <div class="author">
+        <img title="Washington Botelho" src="http://www.gravatar.com/avatar/00c9b483d3c58a12c5f256cf2770d0b8?d=mm" alt="">
+        <div class="biography">
+          <p>
+            Ruby, Java and Python Developer in <a href="http://r7.com" title="R7.com" target="_blank">R7.com</a> Portal.<br />
+            Bachelor's in Information Systems and certified OCJA 1.0 and OCJP 6.<br />
+            Helper and learner of the open source community, and designer adventurer.<br />
+            Also has a passion for dance, skate, jiu-jitsu and Counter Strike Source. (:
+          </p>
+        </div>
+
+        <div class="social">
+          <a href="http://github.com/wbotelhos" title="http://github.com/wbotelhos" target="_blank" class="github"></a>
+          <a href="http://linkedin.com/in/wbotelhos" title="http://linkedin.com/in/wbotelhos" target="_blank" class="linkedin"></a>
+          <a href="http://twitter.com/wbotelhos" title="http://twitter.com/wbotelhos" target="_blank" class="twitter"></a>
+          <a href="http://facebook.com/wbotelhos" title="http://facebook.com/wbotelhos" target="_blank" class="facebook"></a>
+        </div>
+      </div>
+    </div>
+
+    <footer role="contentinfo">
+      &copy; 2012 <a href="http://wbotelhos.com" title="wbotelhos.com">wbotelhos.com</a>
+    </footer>
+  </div>
+
+  <script type="text/javascript">
+    $(function() {
+      $('#default').flury();
+    });
+
+    var _gaq = _gaq || [];
+    _gaq.push(['_setAccount', 'UA-719499234-15']);
+    _gaq.push(['_trackPageview']);
+
+    (function() {
+      var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+      ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+      var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+    })();
+  </script>
+</body>
+</html>
