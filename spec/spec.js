@@ -2,20 +2,16 @@ function context(description, spec) {
   describe(description, spec);
 };
 
-function createForm() {
-  $('body').append('<form>' + fields() + '</form>');
-};
+function build() {
+  $('body').append(
+    '<form>' +
+      '<label for="name">Name:</label>' +
+      '<input id="name" type="text" />' +
 
-function createFields() {
-  $('body').append(fields());
-};
-
-function fields() {
-  return '<label for="name">Name:</label>' +
-				 '<input id="name" type="text" />' +
-
-			   '<label for="email">E-mail:</label>' +
-			   '<input id="email" type="email" />';
+      '<label for="email">E-mail:</label>' +
+      '<input id="email" type="email" />' +
+    '</form>'
+  );
 };
 
 function clear() {
@@ -26,7 +22,7 @@ function clear() {
 
 describe('Flury', function() {
 	describe('options', function() {
-		beforeEach(function() { createFields(); });
+		beforeEach(function() { build(); });
 		afterEach(function()  { clear(); });
 
 		it ('has the right values', function() {
@@ -37,13 +33,55 @@ describe('Flury', function() {
 			var opt = $.fn.flury.defaults
 
 			// then
-			expect(opt.include).toBe(':input')
-			expect(opt.exclude).toBe('input[type="button"], input[type="checkbox"], input[type="image"], input[type="radio"], input[type="submit"]')
+			expect(opt.include).toBe(':input');
+			expect(opt.exclude).toBe('input[type="button"], input[type="checkbox"], input[type="image"], input[type="radio"], input[type="submit"]');
+      expect(opt.inline).toBeTruthy();
 		});
+
+    describe('#include', function() {
+      it ('binds just text field', function() {
+        // given
+        var form = $('form');
+
+        // when
+        form.flury({ include: 'input:text' })
+
+        // then
+        expect(form.children('input:text').prev('label')).toHaveCss({ position: 'absolute' });
+        expect(form.children('input[type="email"]').prev('label')).not.toHaveCss({ position: 'absolute' });
+      });
+    });
+
+    describe('#exclude', function() {
+      it ('binds just text field', function() {
+        // given
+        var form = $('form');
+
+        // when
+        form.flury({ exclude: 'input:text' });
+
+        // then
+        expect(form.children('input:text').prev('label')).not.toHaveCss({ position: 'absolute' });
+        expect(form.children('input[type="email"]').prev('label')).toHaveCss({ position: 'absolute' });
+      });
+    });
+
+    describe('#inline', function() {
+      it ('does not apply inline style', function() {
+        // given
+        var form = $('form');
+
+        // when
+        form.flury({ exclude: 'input:text' });
+
+        // then
+        expect(form.children('input:text').prev('label')).not.toHaveCss({ position: 'absolute' });
+      });
+    });
 	});
 
 	describe('Input Bind', function() {
-		beforeEach(function() { createFields(); });
+		beforeEach(function() { build(); });
 		afterEach(function()  { clear(); });
 
     it ('is chainable', function() {
@@ -159,7 +197,7 @@ describe('Flury', function() {
 	});
 
 	describe('Form Bind', function() {
-		beforeEach(function() { createForm(); });
+		beforeEach(function() { build(); });
 		afterEach(function()  { clear(); });
 
     it ('is chainable', function() {
@@ -279,36 +317,8 @@ describe('Flury', function() {
 	});
 
 	describe('Function', function() {
-		beforeEach(function() { createForm(); });
+		beforeEach(function() { build(); });
 		afterEach(function()  { clear(); });
-
-		describe('#include', function() {
-	    it ('binds just text field', function() {
-	      // given
-	      var form = $('form');
-
-	      // when
-	      form.flury({ include: 'input:text' })
-
-	      // then
-	      expect(form.children('input:text').prev('label')).toHaveCss({ position: 'absolute' });
-	      expect(form.children('input[type="email"]').prev('label')).not.toHaveCss({ position: 'absolute' });
-	    });
-	  });
-
-    describe('#exclude', function() {
-      it ('binds just text field', function() {
-        // given
-        var form = $('form');
-
-        // when
-        form.flury({ exclude: 'input:text' })
-
-        // then
-        expect(form.children('input:text').prev('label')).not.toHaveCss({ position: 'absolute' });
-        expect(form.children('input[type="email"]').prev('label')).toHaveCss({ position: 'absolute' });
-      });
-    });
 
     describe('set', function() {
       it ('is chainable', function() {
