@@ -13,9 +13,10 @@
   <meta content="jquery,plugin,focus,blur,field,form,shadow" name="keywords">
 
 	<link type="text/css" rel="stylesheet" href="demo/css/application.css">
+  <link type="text/css" rel="stylesheet" href="lib/jquery.flury.css">
 
   <script type="text/javascript" src="demo/js/jquery.min.js"></script>
-	<script type="text/javascript" src="lib/jquery.flury.min.js"></script>
+	<script type="text/javascript" src="lib/jquery.flury.js"></script>
 
 	<link href="/favicon.ico" rel="shortcut icon" type="image/x-icon">
 </head>
@@ -29,7 +30,7 @@
 
 			<nav role="navigation">
 			  <ul>
-			    <li><a href="http://github.com/wbotelhos/flury/archive/0.1.0.zip" title="Download" class="download"><i class="icon-download icon-large"></i>v0.1.0</a></li>
+			    <li><a href="http://github.com/wbotelhos/flury/archive/0.2.0.zip" title="Download" class="download"><i class="icon-download icon-large"></i>v0.2.0</a></li>
           <li><a href="http://github.com/wbotelhos/flury" title="Github" target="_blank"><i class="icon-github icon-large"></i>Github</a></li>
           <li><a href="http://wbotelhos.com/labs" title="yLab" target="_blank"><i class="icon-beaker icon-large"></i>yLab</a></li>
           <li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&amp;business=X8HEP2878NDEG&amp;item_name=jQuery%20Flury" title="Donate" target="_blank"><i class="icon-heart-empty icon-large"></i>Donate</a></li>
@@ -40,12 +41,14 @@
     <div id="container">
       <section role="main">
         <article>
-          <h2>Default configuration:</h2>
+          <h2 id="default">
+            <a href="#default">Default:</a>
+          </h2>
 
           <p>This example shows how to use the default configuration over a form.</p>
 
           <div class="demo">
-            <form id="default" action="">
+            <form id="default-demo" action="">
               <label for="name">Name:</label>
               <input id="name" type="text" /><br />
 
@@ -72,7 +75,9 @@
 </pre>
 </div>
 
-        <h2>Including fields:</h2>
+        <h2 id="include-demo">
+          <a href="#include-demo">Including fields:</a>
+        </h2>
 
         <p>
           You can hook just some types of fields changing the attribute <code>include</code>:
@@ -84,7 +89,9 @@
 </pre>
 </div>
 
-        <h2>Excluding fields:</h2>
+        <h2 id="exclude-demo">
+          <a href="#exclude-demo">Excluding fields:</a>
+        </h2>
 
         <p>
           The same way you can exclude some fields changing the attribute <code>exclude</code>:
@@ -96,14 +103,26 @@
 </pre>
 </div>
 
+          <h2 id="inline-demo">
+            <a href="#inline-demo">Inline:</a>
+          </h2>
+
           <p>
-            Using direct target instead a form, the <code>include</code> and <code>exclude</code> gets ignored.
+            You can prevent <code>absolute</code> style to be applied inline and use it from your CSS.
           </p>
 
-          <h2>Single target:</h2>
+<div class="highlight">
+<pre>
+<span class="nx">$</span><span class="p">(</span><span class="s1">'form'</span><span class="p">).</span><span class="nx">flury</span><span class="p">({</span> <span class="nx">inline</span><span class="o">:</span> <span class="kc">false</span> <span class="p">});</span>
+</pre>
+</div>
+
+          <h2 id="single-demo">
+            <a href="#single-demo">Single target:</a>
+          </h2>
 
           <p>
-            You can bind just some field without bind the whole form.
+            You can bind just some fields without bind the whole form.
           </p>
 
 <div class="highlight">
@@ -112,7 +131,9 @@
 </pre>
 </div>
 
-          <h2 id="global-demo">Changing the settings globally:</h2>
+          <h2 id="global">
+            <a href="#global">Changing the settings globally:</a>
+          </h2>
 
           <p>
             You can change any option mentioning the scope <code>$.fn.flury.defaults.</code> + <i>option_name</i>. It must be called before you bind the plugin.
@@ -125,19 +146,29 @@
 </pre>
 </div>
 
-          <h2 id="options">Options:</h2>
-
-          <div id="include" class="option">
-            <div>include: <span>':input'</span></div>
-            <p>Fields to be hooked.</p>
-          </div>
+          <h2 id="options">
+            <a href="#options">Options:</a>
+          </h2>
 
           <div id="exclude" class="option">
             <div>exclude: <span>'input[type="button"], input[type="checkbox"], input[type="image"], input[type="radio"], input[type="submit"]'</span></div>
             <p>Fields to be excluded of the hook.</p>
           </div>
 
-          <h2 id="functions">Functions:</h2>
+          <div id="include" class="option">
+            <div>include: <span>':input'</span></div>
+            <p>Fields to be hooked.</p>
+          </div>
+
+
+          <div id="inline" class="option">
+            <div>inline: <span>true</span></div>
+            <p>Applies the `absolute` style inline.</p>
+          </div>
+
+          <h2 id="functions">
+            <a href="#functions">Functions:</a>
+          </h2>
 
           <div id="set" class="function">
 <div class="highlight">
@@ -149,7 +180,9 @@
             <p>Override the options declared.</p>
           </div>
 
-        <h2 id="tests">Tests:</h2>
+        <h2 id="tests">
+          <a href="#tests">Tests:</a>
+        </h2>
 
         <p>
           This plugin is tested to work better.
@@ -186,7 +219,7 @@
 
   <script type="text/javascript">
     $(function() {
-      $('#default').flury();
+      $('#default-demo').flury();
     });
 
     var _gaq = _gaq || [];

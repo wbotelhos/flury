@@ -5,7 +5,7 @@ jQuery Flury is a plugin to transform a label on a field descriptor.
 ## Version
 
 ```
-@version        0.1.0
+@version        0.2.0
 @since          2012-12-09
 @author         Washington Botelho
 @documentation  wbotelhos.com/flury
@@ -14,6 +14,7 @@ jQuery Flury is a plugin to transform a label on a field descriptor.
 
 ## Required Files
 
++ jquery.flury.css
 + jquery.flury.js
 
 ## Options
@@ -22,6 +23,7 @@ jQuery Flury is a plugin to transform a label on a field descriptor.
 exclude: 'input[type="button"], input[type="checkbox"], input[type="image"],
           input[type="radio"], input[type="submit"]' // Fields to be excluded of the hook.
 include: ':input'                                    // Fields to be hooked.
+inline : true                                        // Applies the `absolute` style inline.
 ```
 
 ## Usage
