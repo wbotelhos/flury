@@ -57,16 +57,29 @@ describe('Flury', function() {
       expect(returned).toBe(field[0]);
     });
 
-		it ('ignores #exclude', function() {
+		it ('does not ignore #exclude', function() {
       // given
       var field = $('#name');
 
       // when
-      field.flury({ include: 'input:text' });
+      field.flury({ exclude: 'input:text' });
 
       // then
-      expect(field.prev('label')).toHaveCss({ position: 'absolute' });
+      expect(field.prev('label')).not.toHaveCss({ position: 'absolute' });
     });
+
+		describe('Class', function() {
+			it ('receives the flury class', function() {
+	      // given
+	      var field = $('#name');
+
+	      // when
+	      field.flury();
+
+	      // then
+	      expect(field.prev('label')).toHaveClass('flury');
+	    });
+	  });
 
 		context('on bind', function() {
       it ('applies absolute style', function() {
@@ -160,16 +173,33 @@ describe('Flury', function() {
       expect(returned).toBe(form[0]);
     });
 
-		it ('receives a main class', function() {
-      // given
-      var form = $('form');
+    describe('Class', function() {
+			it ('receives flury class', function() {
+	      // given
+	      var form = $('form');
 
-      // when
-      form.flury();
+	      // when
+	      form.flury();
 
-      // then
-      expect(form).toHaveClass('flury');
-    });
+	      // then
+	      expect(form.children('#name, #email').prev('label')).toHaveClass('flury');
+	    });
+
+	    context('with deeper fields on markup', function() {
+				it ('receives flury class', function() {
+		      // given
+		      var form = $('form');
+
+		      form.html('<p>' + form.html() + '</p>');
+
+		      // when
+		      form.flury();
+
+		      // then
+		      expect($('#name, #email').prev('label')).toHaveClass('flury');
+		    });
+	   	});
+	   });
 
 		context('on bind', function() {
       it ('applies absolute style on fields', function() {
@@ -281,17 +311,71 @@ describe('Flury', function() {
     });
 
     describe('set', function() {
-	    it ('resets the configurations', function() {
-	      // given
-	      var form = $('form').flury();
+      it ('is chainable', function() {
+        // given
+        var form = $('form').flury();
 
-	      // when
-	      var clone = form.flury('set', { include: 'input:text' });
+        // when
+        var clone = form.flury('set', {}).flury('set', {});
 
-	      // then
-	      expect(clone.children('#name').prev('label')).toHaveCss({ position: 'absolute' });
-	      expect(clone.children('#email').prev('label')).not.toHaveCss({ position: 'absolute' });
-	    });
+        // then
+        expect(clone).toBe(form);
+      });
+
+      it ('removes flury class from unbinded fields', function() {
+        // given
+        var form = $('form').flury();
+
+          // when
+          var clone = form.flury('set', { include: 'input:text' });
+
+          // then
+          expect(clone.children('#name').prev('label')).toHaveClass('flury');
+          expect(clone.children('#email').prev('label')).not.toHaveClass('flury');
+      });
+
+      context('form bind', function() {
+  	    it ('resets the configurations', function() {
+  	      // given
+  	      var form = $('form').flury();
+
+  	      // when
+  	      var clone = form.flury('set', { include: 'input:text' });
+
+  	      // then
+  	      expect(clone.children('#name').prev('label')).toHaveCss({ position: 'absolute' });
+  	      expect(clone.children('#email').prev('label')).not.toHaveCss({ position: 'absolute' });
+  	    });
+      });
+
+      context('one input bind', function() {
+        it ('resets the configurations', function() {
+          // given
+          var field = $('#name').flury();
+
+          // when
+          var clone = field.flury('set', { include: 'input[type="email"]' });
+
+          // then
+          expect(clone.children('#name').prev('label')).not.toHaveCss({ position: 'absolute' });
+        });
+      });
+
+      context('couple input bind', function() {
+        it ('resets the configurations', function() {
+          // given
+          var field = $('#name, #email').flury();
+
+          // when
+          var clone = field.flury('set', { include: 'input:text' });
+
+          // then
+          expect(clone.filter('#name').prev('label')).toHaveCss({ position: 'absolute' });
+          expect(clone.filter('#email').prev('label')).not.toHaveCss({ position: 'absolute' });
+        });
+      });
+
+
 	    // Remove the .off() does not take effect. Focus is not recognized.
       xit ('does not bind twice', function() {
         // given
