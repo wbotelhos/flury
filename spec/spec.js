@@ -292,6 +292,22 @@ describe('Flury', function() {
 	      expect(clone.children('#name').prev('label')).toHaveCss({ position: 'absolute' });
 	      expect(clone.children('#email').prev('label')).not.toHaveCss({ position: 'absolute' });
 	    });
+	    // Remove the .off() does not take effect. Focus is not recognized.
+      xit ('does not bind twice', function() {
+        // given
+        var field = $('#name');
+
+        field.flury('set', {}).flury('set', {});
+
+        spyOn(field, 'focus');
+
+        // when
+        field.focus();
+
+        // then
+        expect(field.focus).toHaveBeenCalled();
+        expect(field.focus.callCount).toEqual(1);
+      });
 	  });
   });
 });
